@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using Ardalis.GuardClauses;
-using pdouelle.Errors;
 
 namespace pdouelle.Reflection
 {
@@ -12,14 +11,15 @@ namespace pdouelle.Reflection
             Guard.Against.Null(propertyName, nameof(propertyName));
             
             PropertyInfo property = typeof(T).GetProperty(propertyName);
-            
-            Guard.Against.Null(property, nameof(property), new ResourceNotFound(typeof(T), nameof(propertyName), propertyName));
 
             return property;
         }
         
         private static void SetValue<T>(this T resource, PropertyInfo property, object value)
         {
+            Guard.Against.Null(resource, nameof(resource));
+            Guard.Against.Null(property, nameof(property));
+
             Type t = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
             var safeValue = Convert.ChangeType(value, t);
         
