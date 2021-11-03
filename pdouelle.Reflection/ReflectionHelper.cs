@@ -15,7 +15,7 @@ namespace pdouelle.Reflection
             return property;
         }
         
-        private static void SetValue<T>(this T resource, PropertyInfo property, object value)
+        public static void SetValue<T>(this T resource, PropertyInfo property, object value)
         {
             Guard.Against.Null(resource, nameof(resource));
             Guard.Against.Null(property, nameof(property));
